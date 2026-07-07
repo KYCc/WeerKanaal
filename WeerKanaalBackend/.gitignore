@@ -1,0 +1,34 @@
+# ---------------------------------------------------------------------------
+# .NET / Backend (WeerKanaalBackend)
+# ---------------------------------------------------------------------------
+[Bb]in/
+[Oo]bj/
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+build/
+out/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+*.dll
+*.exe
+*.pdb
+
+# Temp
+temp/
+
+# NuGet
+*.nupkg
+*.snupkg
+.nuget/
+packages/
+project.lock.json
+project.assets.json
+
+# ASP.NET / secrets
+appsettings.*.local.json
+secrets.json
+*.pfx

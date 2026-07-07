@@ -1,60 +1,10 @@
 # ---------------------------------------------------------------------------
-# .NET / Backend (WeerKanaalBackend)
+# Repo-wide rules. Backend/frontend specific rules live in:
+#   WeerKanaalBackend/.gitignore
+#   WeerKanaalFrontend/.gitignore
 # ---------------------------------------------------------------------------
-[Bb]in/
-[Oo]bj/
-[Dd]ebug/
-[Rr]elease/
-x64/
-x86/
-build/
-out/
-*.user
-*.suo
-*.userosscache
-*.sln.docstates
-*.dll
-*.exe
-*.pdb
 
-# NuGet
-*.nupkg
-*.snupkg
-.nuget/
-packages/
-project.lock.json
-project.assets.json
-
-# ASP.NET / secrets
-appsettings.*.local.json
-secrets.json
-*.pfx
-
-# ---------------------------------------------------------------------------
-# Frontend (WeerKanaalFrontend) - Node / Vite / React
-# ---------------------------------------------------------------------------
-node_modules/
-dist/
-dist-ssr/
-*.local
-
-# Logs
-logs/
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-lerna-debug.log*
-
-# Environment files
-.env
-.env.*
-!.env.example
-
-# ---------------------------------------------------------------------------
 # IDE / Editor
-# ---------------------------------------------------------------------------
 .idea/
 .vs/
 .vscode/*
@@ -64,8 +14,6 @@ lerna-debug.log*
 *.ntvs*
 *.njsproj
 
-# ---------------------------------------------------------------------------
 # OS
-# ---------------------------------------------------------------------------
 .DS_Store
 Thumbs.db

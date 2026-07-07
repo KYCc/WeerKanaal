@@ -11,8 +11,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="API\" />
-    <Folder Include="Business\" />
+    <Folder Include="Instagram\" />
+    <Folder Include="temp\" />
+    <Folder Include="Video\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
 
