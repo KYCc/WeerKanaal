@@ -5,7 +5,7 @@
 
     public static class Cities
     {
-        public static IReadOnlyList<City> AllCities { get; } =
+        public static readonly IReadOnlyList<City> AllCities =
         [
             new City("Antwerpen", new Coords(51.22, 4.40)),
             new City("Brussel", new Coords(50.85, 4.35)),
@@ -15,18 +15,14 @@
             new City("Leuven", new Coords(50.88, 4.70)),
             new City("Mechelen", new Coords(51.03, 4.48)),
             new City("Aalst", new Coords(50.94, 4.04)),
-            new City("Sint-Niklaas", new Coords(51.22, 4.40)),
-            new City("Kortrijk", new Coords(51.22, 4.40)),
-            new City("Oostende", new Coords(51.22, 4.40)),
-            new City("Roeselare", new Coords(51.22, 4.40)),
-            new City("Charleroi", new Coords(51.22, 4.40)),
-            new City("Liège", new Coords(51.22, 4.40)),
-            new City("Namur", new Coords(51.22, 4.40)),
-            new City("Mons", new Coords(51.22, 4.40)),
-            new City("La Louvière", new Coords(51.22, 4.40)),
-            new City("Tournai", new Coords(51.22, 4.40)),
-            new City("Seraing", new Coords(51.22, 4.40)),
-            new City("Verviers", new Coords(51.22, 4.40)),
+            new City("Sint-Niklaas", new Coords(51.17, 4.14)),
+            new City("Kortrijk", new Coords(50.83, 3.26)),
+            new City("Oostende", new Coords(51.22, 2.93)),
+            new City("Roeselare", new Coords(50.95, 3.12)),
+            new City("Charleroi", new Coords(50.41, 4.44)),
+            new City("Liège", new Coords(50.63, 5.58)),
+            new City("Namur", new Coords(50.47, 4.87)),
+            new City("Mons", new Coords(50.45, 3.95)),
         ];
     }
 }
