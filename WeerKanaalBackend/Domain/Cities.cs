@@ -1,73 +1,34 @@
-﻿namespace WeerKanaalBackend.util
+namespace WeerKanaalBackend.util;
+
+public record Coords(double Latitude, double Longitude);
+public record City(string Name, Coords Location);
+
+public static class Cities
 {
-    public record Coords(double Latitude, double Longitude);
-    public record City(string Name, Coords Location);
+    public static readonly IReadOnlyList<City> AllCities =
+    [
+        new("Antwerpen", new Coords(51.22, 4.40)),
+        new("Brussel", new Coords(50.85, 4.35)),
+        new("Gent", new Coords(51.05, 3.73)),
+        new("Brugge", new Coords(51.21, 3.23)),
+        new("Hasselt", new Coords(50.93, 5.34)),
+        new("Leuven", new Coords(50.88, 4.70)),
+        new("Mechelen", new Coords(51.03, 4.48)),
+        new("Aalst", new Coords(50.94, 4.04)),
+        new("Sint-Niklaas", new Coords(51.17, 4.14)),
+        new("Kortrijk", new Coords(50.83, 3.26)),
+        new("Oostende", new Coords(51.22, 2.93)),
+        new("Roeselare", new Coords(50.95, 3.12)),
+        new("Charleroi", new Coords(50.41, 4.44)),
+        new("Liège", new Coords(50.63, 5.58)),
+        new("Namur", new Coords(50.47, 4.87)),
+        new("Mons", new Coords(50.45, 3.95)),
+    ];
 
-    public static class Cities
-    {
-        public static readonly string[] Names =
-        [
-            "Antwerpen",
-            "Brussel",
-            "Gent",
-            "Brugge",
-            "Hasselt",
-            "Leuven",
-            "Mechelen",
-            "Aalst",
-            "Sint-Niklaas",
-            "Kortrijk",
-            "Oostende",
-            "Roeselare",
-            "Charleroi",
-            "Liège",
-            "Namur",
-            "Mons",
-        ];
+    public static IReadOnlyList<string> Names => AllCities.Select(city => city.Name).ToList();
+    public static IReadOnlyList<double> Latitudes => AllCities.Select(city => city.Location.Latitude).ToList();
+    public static IReadOnlyList<double> Longitudes => AllCities.Select(city => city.Location.Longitude).ToList();
 
-        public static readonly double[] Latitudes =
-        [
-            51.22,
-            50.85,
-            51.05,
-            51.21,
-            50.93,
-            50.88,
-            51.03,
-            50.94,
-            51.17,
-            50.83,
-            51.22,
-            50.95,
-            50.41,
-            50.63,
-            50.47,
-            50.45,
-        ];
-
-        public static readonly double[] Longitudes =
-        [
-            4.40,
-            4.35,
-            3.73,
-            3.23,
-            5.34,
-            4.70,
-            4.48,
-            4.04,
-            4.14,
-            3.26,
-            2.93,
-            3.12,
-            4.44,
-            5.58,
-            4.87,
-            3.95,
-        ];
-
-        public static readonly IReadOnlyList<City> AllCities =
-            Names
-                .Select((name, i) => new City(name, new Coords(Latitudes[i], Longitudes[i])))
-                .ToList();
-    }
+    public static readonly IReadOnlyDictionary<(double Latitude, double Longitude), string> CityDictionary =
+        AllCities.ToDictionary(city => (city.Location.Latitude, city.Location.Longitude), city => city.Name);
 }

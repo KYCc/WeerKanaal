@@ -4,5 +4,5 @@ namespace WeerKanaalBackend.Weather;
 
 public interface IWeatherProvider
 {
-    Task<CityWeather[]> GetForecastsAsync();
+    Task<List<CityWeather>> GetAllForecastsOfCityListAsync();
 }
