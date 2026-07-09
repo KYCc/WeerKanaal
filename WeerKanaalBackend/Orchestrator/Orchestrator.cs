@@ -1,4 +1,5 @@
 using Microsoft.Extensions.Logging;
+using WeerKanaalBackend.Video;
 using WeerKanaalBackend.Weather;
 
 namespace WeerKanaalBackend.Orchestrator;
@@ -21,7 +22,8 @@ public class Orchestrator
         var forecasts = await _weatherProvider.GetAllForecastsOfCityListAsync();
         _logger.LogInformation("Retrieved {Count} city forecasts", forecasts.Count);
 
-        
+        PlaywrightRecorder recorder = new(forecasts);
+        await recorder.RecordVideo();
         
         _logger.LogInformation("Daily run completed");
     }
