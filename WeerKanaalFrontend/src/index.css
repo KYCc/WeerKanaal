@@ -1,5 +1,12 @@
 @import "tailwindcss";
+@import "@fontsource/space-grotesk/400.css";
+@import "@fontsource/space-grotesk/500.css";
+@import "@fontsource/space-grotesk/700.css";
 
 @theme {
-
+  --color-ink: #14243d;      /* titles, city names, pill bg */
+  --color-accent: #2d63b8;   /* brand line, max temp */
+  --color-muted: #7d90a8;    /* year */
+  --color-faint: #93a5bc;    /* min temp */
+  --font-display: "Space Grotesk", sans-serif;
 }

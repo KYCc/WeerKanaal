@@ -65,7 +65,6 @@ public class OpenMeteoWeatherProvider : IWeatherProvider
                     data.Daily.WeatherCode[0],
                     data.Daily.WindSpeedMax[0])));
         }
-        _logger.LogInformation("Successfully fetched weather from OpenMeteo");
         return result;
     }
 }

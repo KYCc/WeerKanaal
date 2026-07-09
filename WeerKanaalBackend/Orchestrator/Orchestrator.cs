@@ -17,11 +17,12 @@ public class Orchestrator
     public async Task RunAsync()
     {
         _logger.LogInformation("Daily run started");
-        
         _logger.LogInformation("Fetching tomorrow's forecast");
         var forecasts = await _weatherProvider.GetAllForecastsOfCityListAsync();
         _logger.LogInformation("Retrieved {Count} city forecasts", forecasts.Count);
 
+        
+        
         _logger.LogInformation("Daily run completed");
     }
 }
