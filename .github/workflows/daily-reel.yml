@@ -1,0 +1,40 @@
+name: Daily Reel
+
+on:
+  schedule:
+    # GitHub cron is UTC and DST-blind. 16:15 UTC = 17:15 Brussels (winter/CET) / 18:15 (summer/CEST).
+    - cron: '15 16 * * *'
+  workflow_dispatch: {}   # manual trigger for testing
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4   # brings the committed wwwroot + Music track
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      # Build once so both the Playwright CLI and the run step can reuse the output.
+      - name: Build
+        run: dotnet build WeerKanaalBackend/WeerKanaalBackend.csproj -c Release
+
+      # Chromium isn't preinstalled; --with-deps also pulls the required OS libraries.
+      - name: Install Playwright browser
+        shell: pwsh
+        run: WeerKanaalBackend/bin/Release/net10.0/playwright.ps1 install --with-deps chromium
+
+      # Run from the project dir so the cwd-relative paths (wwwroot, Music, Instagram, Video) resolve.
+      - name: Run daily reel
+        working-directory: WeerKanaalBackend
+        env:
+          IG_USER_ID: ${{ secrets.IG_USER_ID }}
+          IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
+          R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
+          R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          R2_BUCKET: ${{ secrets.R2_BUCKET }}
+          R2_TOKEN_BUCKET: ${{ secrets.R2_TOKEN_BUCKET }}
+          R2_PUBLIC_BASE_URL: ${{ secrets.R2_PUBLIC_BASE_URL }}
+        run: dotnet run -c Release --no-build

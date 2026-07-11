@@ -3,12 +3,16 @@ import {WeatherIcon} from "../icons";
 
 interface WeatherStripProps {
     cityWeather: CityWeather
+    index: number
 }
 
-export function WeatherStrip({ cityWeather }: WeatherStripProps) {
+export function WeatherStrip({ cityWeather, index }: WeatherStripProps) {
     const { name, report } = cityWeather;
     return (
-        <div className="flex flex-1 items-center bg-white rounded-[30px] px-[52px] shadow-[0_14px_34px_rgba(35,70,120,0.12)]">
+        <div
+            className="flex flex-1 items-center bg-white rounded-[30px] px-[52px] shadow-[0_14px_34px_rgba(35,70,120,0.12)] animate-[fade-in_0.6s_ease-out_both]"
+            style={{ animationDelay: `${index * 120}ms` }}
+        >
             <WeatherIcon icon={report.icon} className="w-[112px] h-[112px]" />
             {report.windWarning ? (
                 <div className="flex flex-1 flex-col items-start gap-[10px] ml-[40px]">
