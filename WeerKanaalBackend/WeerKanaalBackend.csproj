@@ -8,12 +8,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="Music\" />
     <Folder Include="Instagram\" />
     <Folder Include="temp\" />
+    <Folder Include="Video\recordings\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="AWSSDK.S3" Version="4.0.100.3" />
+    <PackageReference Include="DotNetEnv" Version="3.2.0" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.9" />
     <PackageReference Include="Microsoft.Extensions.Http.Resilience" Version="10.7.0" />
     <PackageReference Include="Microsoft.Playwright" Version="1.61.0" />

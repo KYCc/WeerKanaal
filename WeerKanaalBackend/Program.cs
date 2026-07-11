@@ -4,6 +4,9 @@ using Microsoft.Extensions.Hosting;
 using WeerKanaalBackend.Orchestrator;
 using WeerKanaalBackend.Weather;
 
+// Load local .env for development (a no-op in CI, where vars come from the real environment).
+if (File.Exists(".env")) DotNetEnv.Env.Load();
+
 var builder = Host.CreateApplicationBuilder(args);
 
 // HttpClient factory for the weather provider.

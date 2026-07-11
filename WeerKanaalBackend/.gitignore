@@ -16,6 +16,8 @@ out/
 *.dll
 *.exe
 *.pdb
+Video/recordings/*
+Instagram/*.mp4
 
 # Temp
 temp/
@@ -32,3 +34,4 @@ project.assets.json
 appsettings.*.local.json
 secrets.json
 *.pfx
+.env

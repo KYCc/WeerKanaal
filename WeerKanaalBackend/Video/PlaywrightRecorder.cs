@@ -13,8 +13,10 @@ public class PlaywrightRecorder
         _forecasts = forecasts;
     }
 
-    public async Task RecordVideo()
+    public async Task<string> RecordVideo()
     {
+        if (Directory.Exists("Video/recordings")) Directory.Delete("Video/recordings", true);
+        Directory.CreateDirectory("Video/recordings");
         using var playwright = await Playwright.CreateAsync();
         var browser = await playwright.Chromium.LaunchAsync(new()
         {
@@ -24,20 +26,23 @@ public class PlaywrightRecorder
         var context = await browser.NewContextAsync(new()
         {
             ViewportSize   = new() { Width = 1080, Height = 1920 },
-            RecordVideoDir = "Video/",
+            RecordVideoDir = "Video/recordings",
             RecordVideoSize = new() { Width = 1080, Height = 1920 },
         });
 
         var jsonOpts = new JsonSerializerOptions(JsonSerializerDefaults.Web);
         var weatherJson = JsonSerializer.Serialize(_forecasts, jsonOpts);
         var tomorrowString = DateTime.Today.AddDays(1).ToString("yyyy-MM-dd");
-        Console.WriteLine(weatherJson);
         
         await context.AddInitScriptAsync(
             $"window.__Weather__ = {weatherJson}; window.__Date__ = '{tomorrowString}';"
         );
-
-
+        var page = await context.NewPageAsync();
+        var url = new Uri(Path.GetFullPath("wwwroot/index.html")).AbsoluteUri;
+        await page.GotoAsync(url);
+        await page.WaitForSelectorAsync("body[data-ready='true']");
+        await page.WaitForTimeoutAsync(20000);
         await context.CloseAsync();
+        return await page.Video!.PathAsync();
     }
 }
