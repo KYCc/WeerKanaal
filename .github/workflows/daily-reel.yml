@@ -25,6 +25,9 @@ jobs:
         shell: pwsh
         run: WeerKanaalBackend/bin/Release/net10.0/playwright.ps1 install --with-deps chromium
 
+      - name: Install ffmpeg
+        run: sudo apt-get update && sudo apt-get install -y ffmpeg
+
       # Run from the project dir so the cwd-relative paths (wwwroot, Music, Instagram, Video) resolve.
       - name: Run daily reel
         working-directory: WeerKanaalBackend
