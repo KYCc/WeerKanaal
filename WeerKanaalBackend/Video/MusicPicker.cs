@@ -30,6 +30,15 @@ public static class MusicPicker
         return PickRandomFromFolder(PickFolder(forecasts));
     }
 
+    public static string PickVibe(List<CityWeather> forecasts) => PickFolder(forecasts) switch
+    {
+        StormDir => "storm",
+        ColdDir => "cold",
+        RainDir => "rain",
+        GreyDir => "grey",
+        _ => "hot"
+    };
+
     private static string PickFolder(List<CityWeather> forecasts)
     {
         if (forecasts.Count == 0) return DefaultDir;

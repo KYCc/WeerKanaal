@@ -32,10 +32,11 @@ public class PlaywrightRecorder
 
         var jsonOpts = new JsonSerializerOptions(JsonSerializerDefaults.Web);
         var weatherJson = JsonSerializer.Serialize(_forecasts, jsonOpts);
+        var vibe = MusicPicker.PickVibe(_forecasts);
         var tomorrowString = DateTime.Today.AddDays(1).ToString("yyyy-MM-dd");
-        
+
         await context.AddInitScriptAsync(
-            $"window.__Weather__ = {weatherJson}; window.__Date__ = '{tomorrowString}';"
+            $"window.__Weather__ = {weatherJson}; window.__Date__ = '{tomorrowString}'; window.__Vibe__ = '{vibe}';"
         );
         var page = await context.NewPageAsync();
         var url = new Uri(Path.GetFullPath("wwwroot/index.html")).AbsoluteUri;

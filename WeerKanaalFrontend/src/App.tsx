@@ -1,5 +1,5 @@
 import {WeatherStrip} from "./components/WeatherStrip.tsx";
-import {data, reelDate} from "./model/CityWeather.ts";
+import {data, reelDate, type Vibe, vibe} from "./model/CityWeather.ts";
 import {useEffect, useState} from "react";
 
 // Format tomorrow's date, nl-BE (e.g. "10 juli" / "2026").
@@ -7,6 +7,14 @@ import {useEffect, useState} from "react";
 const day = new Date(reelDate + "T12:00:00");
 const dayMonth = new Intl.DateTimeFormat("nl-BE", { day: "numeric", month: "long" }).format(day);
 const year = new Intl.DateTimeFormat("nl-BE", { year: "numeric" }).format(day);
+
+const vibeGradients : Record<Vibe, string> = {
+    hot: "bg-[linear-gradient(180deg,#d8ecfc,#eaf4fd_38%,#f6fafe)]",
+    cold: "bg-[linear-gradient(180deg,#a9e4f5,#c4eefa_40%,#ddf6fd)]",
+    rain: "bg-[linear-gradient(180deg,#8fb2d8,#a7c6e4_45%,#c2dbf0)]",
+    storm: "bg-[linear-gradient(180deg,#5c6b83,#74849b_45%,#8f9db2)]",
+    grey: "bg-[linear-gradient(180deg,#b4bcc6,#c6ccd4_45%,#d6dbe0)]"
+}
 
 const PAGE_SIZE = 4;
 
@@ -36,11 +44,11 @@ function App() {
   return (
     <div className="flex w-[1080px] h-[1920px] flex-col font-display">
         <div className="bg-black h-[420px]"></div>
-        <div className="flex flex-col box-border h-[1080px] px-[64px] py-[72px] bg-[linear-gradient(180deg,#f2f7fc,#dcebf8_60%,#cfe3f5)]">
+        <div className={`flex flex-col box-border h-[1080px] px-[64px] py-[72px] ${vibeGradients[vibe]}`}>
             <div className="flex items-end justify-between mb-[44px]">
                 <div className="flex flex-col gap-[10px]">
-                    <span className="font-bold text-[26px] tracking-[7px] text-accent">HET WEER KANAAL</span>
-                    <span className="font-bold text-[78px] leading-none tracking-[-2px] text-ink">Morgen</span>
+                    <span className={`font-bold text-[26px] tracking-[7px] ${vibe == "storm" ? "text-white" : "text-accent"}`}>HET WEER KANAAL</span>
+                    <span className={`font-bold text-[78px] leading-none tracking-[-2px] ${vibe == "storm" ? "text-white" : "text-ink"}`}>Morgen</span>
                 </div>
                 <div className="flex flex-col items-end gap-[6px] pb-[8px]">
                     <span className="font-medium text-[34px] text-ink">{dayMonth}</span>

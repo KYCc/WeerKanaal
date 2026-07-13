@@ -49,9 +49,15 @@ export const data: CityWeather[] = window.__Weather__ ?? MOCK_DATA;
 const MOCK_DATE = "2026-07-10";
 export const reelDate: string = window.__Date__ ?? MOCK_DATE;
 
+// Overall weather mood (injected by the backend, same logic as the music picker).
+export type Vibe = "hot" | "cold" | "rain" | "storm" | "grey";
+const MOCK_VIBE: Vibe = "hot";
+export const vibe: Vibe = window.__Vibe__ ?? MOCK_VIBE;
+
 declare global {
     interface Window {
         __Weather__?: CityWeather[]
         __Date__?: string
+        __Vibe__?: Vibe
     }
 }
