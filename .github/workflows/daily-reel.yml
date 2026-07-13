@@ -1,10 +1,7 @@
 name: Daily Reel
 
 on:
-  schedule:
-    # GitHub cron is UTC and DST-blind. 16:15 UTC = 17:15 Brussels (winter/CET) / 18:15 (summer/CEST).
-    - cron: '12 16 * * *'
-  workflow_dispatch: {}   # manual trigger for testing
+  workflow_dispatch: {}   # manual trigger
 
 jobs:
   publish:
