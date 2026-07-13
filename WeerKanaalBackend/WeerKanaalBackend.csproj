@@ -8,8 +8,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Music\" />
     <Folder Include="Instagram\" />
+    <Folder Include="Music\cold\" />
+    <Folder Include="Music\rain\" />
+    <Folder Include="Music\grey\" />
+    <Folder Include="Music\storm\" />
     <Folder Include="temp\" />
     <Folder Include="Video\recordings\" />
     <Folder Include="wwwroot\" />

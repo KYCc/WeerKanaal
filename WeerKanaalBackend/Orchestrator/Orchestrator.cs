@@ -30,7 +30,7 @@ public class Orchestrator
         _logger.LogInformation("Video recorded");
         
         _logger.LogInformation("Now converting to mp4...");
-        var musicPath = MusicPicker.PickRandom();
+        var musicPath = MusicPicker.PickRandomByWeather(forecasts);
         _logger.LogInformation("Selected track: {Track}", musicPath);
         var encoder = new VideoEncoder();
         var mp4Path = await encoder.ToMp4Async(videoPath, musicPath);
