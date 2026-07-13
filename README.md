@@ -19,5 +19,6 @@ React project dat de frames voorziet
 - Inject weather data
 - Record page
 - Pass frames to FFmpeg
+- Add song based on weather
 - Output mp4
 - Upload to Instagram
