@@ -58,6 +58,11 @@ public static class MusicPicker
     private static string FolderFor(CityWeather city)
     {
         if (city.Report.WindWarning) return StormDir;
+        
+        if (city.Report.TempMax >= 25 && city.Report.Icon is WeatherIcon.Cloudy or WeatherIcon.Foggy)
+        {
+            return HotDir;
+        }
 
         return city.Report.Icon switch
         {
@@ -74,8 +79,9 @@ public static class MusicPicker
         StormDir => 4,
         ColdDir => 3,
         RainDir => 2,
-        GreyDir => 1,
-        _ => 0
+        HotDir => 1,
+        GreyDir => 0,
+        _ => -1
     };
 
     private static IEnumerable<string> EnumerateTracks(string folder, bool recursive = false) =>
