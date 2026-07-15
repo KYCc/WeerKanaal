@@ -17,7 +17,7 @@ public class Orchestrator
         _weatherProvider = weatherProvider;
     }
     
-    public async Task RunAsync()
+    public async Task RunAsync(bool publish = true)
     {
         _logger.LogInformation("Daily run started");
         _logger.LogInformation("Fetching tomorrow's forecast");
@@ -36,12 +36,19 @@ public class Orchestrator
         var mp4Path = await encoder.ToMp4Async(videoPath, musicPath);
         _logger.LogInformation("Encoded MP4: {Path}", mp4Path);
 
-        _logger.LogInformation("Now uploading to Instagram...");
-        var publisher = new InstagramPublisher();
-        var tomorrow = DateTime.Today.AddDays(1).ToString("d MMMM yyyy", new CultureInfo("nl-BE"));
-        var caption = $"Het weer voor morgen, {tomorrow}. #weer #weerbelgië #weerkanaal #belgie";
-        var mediaId = await publisher.PublishReelAsync(mp4Path, caption);
-        _logger.LogInformation("Published reel: {MediaId}", mediaId);
+        if (publish)
+        {
+            _logger.LogInformation("Now uploading to Instagram...");
+            var publisher = new InstagramPublisher();
+            var tomorrow = DateTime.Today.AddDays(1).ToString("d MMMM yyyy", new CultureInfo("nl-BE"));
+            var caption = $"Het weer voor morgen, {tomorrow}. #weer #weerbelgië #weerkanaal #belgie";
+            var mediaId = await publisher.PublishReelAsync(mp4Path, caption);
+            _logger.LogInformation("Published reel: {MediaId}", mediaId);
+        }
+        else
+        {
+            _logger.LogInformation("--no-publish set; skipping Instagram upload. MP4 saved at {Path}", mp4Path);
+        }
 
         _logger.LogInformation("Daily run completed");
     }

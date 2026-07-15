@@ -26,4 +26,4 @@ var host = builder.Build();
 
 using var scope = host.Services.CreateScope();
 var orchestrator = scope.ServiceProvider.GetRequiredService<Orchestrator>();
-await orchestrator.RunAsync();
+await orchestrator.RunAsync(publish: !args.Contains("--no-publish"));
