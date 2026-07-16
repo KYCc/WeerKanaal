@@ -8,8 +8,16 @@ public class OpenMeteoData
     public double Latitude { get; set; }
     [JsonPropertyName("longitude")] 
     public double Longitude { get; set; }
-    [JsonPropertyName("daily")] 
+    [JsonPropertyName("daily")]
     public OpenMeteoDaily? Daily { get; set; }
+    [JsonPropertyName("hourly")]
+    public OpenMeteoHourly? Hourly { get; set; }
+}
+
+public class OpenMeteoHourly
+{
+    [JsonPropertyName("weather_code")]
+    public List<int>? WeatherCode { get; set; }
 }
 
 public class OpenMeteoDaily

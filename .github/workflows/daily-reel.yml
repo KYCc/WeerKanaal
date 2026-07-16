@@ -17,6 +17,10 @@ jobs:
       - name: Build
         run: dotnet build WeerKanaalBackend/WeerKanaalBackend.csproj -c Release
 
+      # Fail fast before spending time on Playwright/ffmpeg setup.
+      - name: Test
+        run: dotnet test WeerKanaalBackend.Tests/WeerKanaalBackend.Tests.csproj -c Release
+
       # Chromium isn't preinstalled; --with-deps also pulls the required OS libraries.
       - name: Install Playwright browser
         shell: pwsh

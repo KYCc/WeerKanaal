@@ -7,6 +7,9 @@ namespace WeerKanaalBackend.Weather;
 
 public class OpenMeteoWeatherProvider : IWeatherProvider
 {
+    private const int DaytimeStartHour = 7;
+    private const int DaytimeEndHour = 21;
+
     private readonly ILogger<OpenMeteoWeatherProvider> _logger;
     private readonly HttpClient _httpClient;
 
@@ -24,7 +27,8 @@ public class OpenMeteoWeatherProvider : IWeatherProvider
         var query = "v1/forecast?latitude="
                   + string.Join(",", latitudes)
                   + "&longitude=" + string.Join(",", longitudes)
-                  + "&daily=temperature_2m_max,temperature_2m_min,weather_code,wind_speed_10m_max"
+                  + "&daily=temperature_2m_max,temperature_2m_min,wind_speed_10m_max"
+                  + "&hourly=weather_code"
                   + "&timezone=Europe/Brussels"
                   + "&start_date=" + tomorrowString
                   + "&end_date=" + tomorrowString;
@@ -52,17 +56,21 @@ public class OpenMeteoWeatherProvider : IWeatherProvider
         for (var i = 0; i < openMeteoData.Count && i < Cities.AllCities.Count; i++)
         {
             var data = openMeteoData[i];
+            var daytimeCodes = data.Hourly?.WeatherCode?
+                .Skip(DaytimeStartHour)
+                .Take(DaytimeEndHour - DaytimeStartHour + 1)
+                .ToList();
             if (data.Daily?.TempMin is null ||
                 data.Daily.TempMax is null ||
-                data.Daily.WeatherCode is null ||
-                data.Daily.WindSpeedMax is null) continue;
+                data.Daily.WindSpeedMax is null ||
+                daytimeCodes is null || daytimeCodes.Count == 0) continue;
 
             result.Add(new CityWeather(
                 Cities.AllCities[i].Name,
                 new WeatherReport(
                     data.Daily.TempMin[0],
                     data.Daily.TempMax[0],
-                    data.Daily.WeatherCode[0],
+                    daytimeCodes.Max(),
                     data.Daily.WindSpeedMax[0])));
         }
         return result;

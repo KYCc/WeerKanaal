@@ -17,3 +17,7 @@
 # OS
 .DS_Store
 Thumbs.db
+
+# Test project build output
+WeerKanaalBackend.Tests/bin/
+WeerKanaalBackend.Tests/obj/
